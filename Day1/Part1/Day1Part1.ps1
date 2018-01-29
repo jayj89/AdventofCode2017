@@ -12,7 +12,7 @@
 [int]$Number
 $Results = $null
 
-$puzzleinput = gc S:\Prod\AdventOfCode\JayJ\PuzzleInput.txt
+$puzzleinput = gc C:\Git\AdventofCode2017\Day1\Part2\PuzzleInput.txt
 $simpleinput = "1111"
 
 $numbers = ([int[]]($puzzleinput -split '' | where {$_ -match '.'}))
