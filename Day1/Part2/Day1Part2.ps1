@@ -12,12 +12,11 @@
 #What is the solution to your captcha?
 
 [int]$Counter = -1
-[int]$HalfwayCounter = 0
+#[int]$HalfwayCounter = 0
 [int]$Number
 [int]$Results = $null
 
-$puzzleinput = "1212"
-# gc C:\Git\AdventofCode2017\Day1\Part2\PuzzleInput.txt
+$puzzleinput = gc S:\Prod\AdventOfCode\JayJ\AdventofCode2017\Day1\Part2\PuzzleInput.txt
 #$simpleinput = "1111"
 
 $numbers = ([int[]]($puzzleinput -split '' | where {$_ -match '.'}))
@@ -26,22 +25,22 @@ $numbers = ([int[]]($puzzleinput -split '' | where {$_ -match '.'}))
 
 foreach ($number in $numbers)
     {
-        $HalfwayCounter+=$halfway
-        $Counter++
+        #$HalfwayCounter+=$halfway
         Write-Host "The current number is $number" -ForegroundColor Cyan                       
-        Write-Host "The current number $halfway digits ahead of $number (halfway) is $($numbers[$HalfwayCounter])"
+        Write-Host "The current number $halfway digits ahead of $number (halfway) is $($numbers[$halfway])"
         
-        if($number -eq $numbers[$HalfwayCounter])
+        if($number -eq $numbers[$halfway])
         {
-        Write-host " $number matched $($numbers[$HalfwayCounter])! Adding to total.." -ForegroundColor Green
-        $Results += ($number+$($numbers[$HalfwayCounter]))
+        Write-host " $number matched $($numbers[$halfway])! Adding to total.." -ForegroundColor Green
+        $Results += ($number+$($numbers[$halfway]))
         Write-host "The current total is $Results" -ForegroundColor Magenta
 
         }
             else
                 {
-                Write-Host " $number and $($numbers[$HalfwayCounter]) didnt match, moving on.." -ForegroundColor Yellow
+                Write-Host " $number and $($numbers[$halfway]) didnt match, moving on.." -ForegroundColor Yellow
                 }
+                $halfway++
     }
 Write-host "The results are $Results"
         
