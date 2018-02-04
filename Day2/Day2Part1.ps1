@@ -9,24 +9,31 @@
 #The third row's difference is 6.
 #In this example, the spreadsheet's checksum would be 8 + 4 + 6 = 18.
 
-$puzzleinput = gc S:\Prod\AdventOfCode\JayJ\AdventofCode2017\Day2\SimpleInput.txt
+$puzzleinput = gc C:\Git\AdventofCode2017\Day2\PuzzleInput.txt
 #$numbers = ([int[]]($puzzleinput -split ' ' | where {$_ -match '.'}))
 $rownumbers = @()
 #$splitrownumbers = @()
-[int]$i= 0
+[int]$i=0
+[int]$checksum=$null
 
 foreach ($row in $puzzleinput)
     {
     
         $rownumbers+=$row        
         Write-Host "This is a row : $row"
-        $splitrownumbers=([int[]]($rownumbers[$i] -split ' ' | where {$_ -match '.'}))
-        $splitrownumbers | sort
+        $splitrownumbers=([int[]]($rownumbers[$i] -split '`t' | where {$_ -match '.'}))
+        #.Split([System.StringSplitOptions]::RemoveEmptyEntries)))
         Write-Host "This is a split row: $splitrownumbers"
+        $SortedSplitRowNumbers=$splitrownumbers | sort
+        Write-Host "This is a sorted split row: $SortedSplitrownumbers"
+        $checksum+=($SortedSplitrownumbers[-1]-$SortedSplitrownumbers[0])
+        Write-Host "The current checksum is $checksum" -ForegroundColor Yellow
         #$splitrownumbers+=$splitrow
         $i++
 
     }
+
+Write-Host "The final Checksum is $checksum" -ForegroundColor Green
 
 
 #[int]$i= 0
