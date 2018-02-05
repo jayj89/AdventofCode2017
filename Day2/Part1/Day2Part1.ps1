@@ -9,7 +9,7 @@
 #The third row's difference is 6.
 #In this example, the spreadsheet's checksum would be 8 + 4 + 6 = 18.
 
-$puzzleinput = gc C:\Git\AdventofCode2017\Day2\Part1\PuzzleInput.txt
+$puzzleinput = gc C:\Git\AdventofCode2017\Day2\PuzzleInput.txt
 #$numbers = ([int[]]($puzzleinput -split ' ' | where {$_ -match '.'}))
 $rownumbers = @()
 #$splitrownumbers = @()
