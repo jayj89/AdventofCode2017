@@ -21,7 +21,7 @@ foreach ($row in $puzzleinput)
     
         $rownumbers+=$row        
         Write-Host "This is a row : $row"
-        $splitrownumbers=([int[]]($rownumbers[$i] -split '`t' | where {$_ -match '.'}))
+        $splitrownumbers=([int[]]($rownumbers[$i] -split '\s+' | where {$_ -match '.'}))
         #.Split([System.StringSplitOptions]::RemoveEmptyEntries)))
         Write-Host "This is a split row: $splitrownumbers"
         $SortedSplitRowNumbers=$splitrownumbers | sort
