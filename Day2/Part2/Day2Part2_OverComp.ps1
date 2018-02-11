@@ -11,30 +11,49 @@
 #In this example, the sum of the results would be 4 + 3 + 2 = 9
 
 $puzzleinput = gc C:\Git\AdventofCode2017\Day2\Part2\PuzzleInput.txt
-$SimpleInput = '8 4 2 12'
+$SimpleInput = '5 2 9 8'
 $rownumbers = @()
+[int]$Count=0
 [int]$i=0
+[int]$j=0
 [int]$c=-1
 #[int]$DividedOutput=$null
 [int]$number=$null
 [int]$total=$null
 
-foreach ($row in $SimpleInput)
+foreach ($row in $PuzzleInput)
     {
     $rownumbers+=$row
     Write-host "This is a row: $row" -ForegroundColor Yellow
-    $splitrownumbers=([int[]]($rownumbers[$i] -split '\s+' | where {$_ -match '.'}))
+    $splitrownumbers=([int[]]($rownumbers[$j] -split '\s+' | where {$_ -match '.'}))
     Write-Host "This is a split row: $splitrownumbers" -ForegroundColor Cyan
     #$iterations=($splitrownumbers.length*$splitrownumbers.length)
+    $j++
+
+    foreach ($row in $rownumbers) {
  
+        while ($Count -lt ($splitrownumbers.length*$splitrownumbers.length)){
+
         foreach ($number in $splitrownumbers)
-            {
+            {            
             Write-host "Dividing $($splitrownumbers[$i]) by $($splitrownumbers[$c]) to determine if whole number..." -ForegroundColor Yellow
+
+                #if($splitrownumbers[$i] -eq $splitrownumbers[$c] )
+                  #  {
+
+                   # Write-host "Numbers match, not checking if they are evenly divisible.." -ForegroundColor Red
+                    #$Count++
+                   # }
+
             $DividedTotal=$($splitrownumbers[$i])/$splitrownumbers[$c] 
             Write-host "That equals $DividedTotal!" -ForegroundColor Cyan
             $Remainder=$DividedTotal % 2
             Write-host "Remainder = $Remainder" -ForegroundColor Magenta                   
+            $i++
             $c++
+
+            if ($i -ige $splitrownumbers.length) {$i=-1}
+            if ($c -ige $splitrownumbers.length) {$c=0}  
 
 
              if ($Remainder -eq 0)
@@ -45,21 +64,36 @@ foreach ($row in $SimpleInput)
 
                 }
 
-              if ($Remainder -eq 1) 
+             if ($Remainder -eq 1 -and $DividedTotal -eq 1) 
                     {
                 
-                    write-host "The current divided output is odd ($DividedTotal), not adding to total, moving on..." -ForegroundColor Cyan
+                    write-host "Current divided output is odd! But divided total was ($DividedTotal) so noy adding to total..." -ForegroundColor Red
+                    #$total+=$DividedTotal
+
+                    }
+              
+              if ($Remainder -eq 1 -and $DividedTotal -gt 1) 
+                    {
+                
+                    write-host "Current divided output is odd! ($DividedTotal), adding to total..." -ForegroundColor Green
+                    $total+=$DividedTotal
 
                     }
 
                     if ($Remainder -ne 1 -and $Remainder -ne 0)
                         {
-                        Write-Host "The current divided output is not whole..." -ForegroundColor Magenta
+                        #Write-Host "The current divided output is not whole..." -ForegroundColor Magenta
                         }
+          $Count++
           
                     
             }
-
+                                                                            }
+    $Count=0
+    Write-host "The total for that loop was $total" -ForegroundColor White    
+                                                                                                 
+                                  }
     }
+                                    
 
 write-host "The final total is $total" -ForegroundColor Green
